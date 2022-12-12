@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "672218945412",
+    "project_id": "novels-cfc3d",
+    "storage_bucket": "novels-cfc3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672218945412:android:a04fd597ed140bae71efd1",
+        "android_client_info": {
+          "package_name": "com.novel.novels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672218945412-brl5n6606hfr6lv1ucfn6c639uvp8f7t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.novel.novels",
+            "certificate_hash": "3f64b2a106475170c91c74837eb1efb6e07fbf08"
+          }
+        },
+        {
+          "client_id": "672218945412-k6nf3kkvj0uack224q1v5l26mbibia9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfF5UoLOcYdSgPTtI64mankw8ZNPQl1w8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672218945412-k6nf3kkvj0uack224q1v5l26mbibia9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

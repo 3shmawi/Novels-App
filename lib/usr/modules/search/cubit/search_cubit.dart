@@ -1,0 +1,61 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:novels/usr/modules/search/cubit/search_state.dart';
+
+class SearchCubit extends Cubit<SearchState> {
+  SearchCubit() : super(SearchInitial());
+  //
+  // List<ProductModel> resultSearch = [];
+  // List<ProductModel> allProducts = [];
+  // List<ProductModel> adminProducts = [];
+  // List<CartProductModel> cartProducts = [];
+  //
+  // void clearSearchResult() {
+  //   resultSearch = [];
+  //   emit(ClearSearchResultState());
+  // }
+  //
+  // void searchAtAllProducts(String search) {
+  //   resultSearch = [];
+  //
+  //   for (var element in allProducts) {
+  //     if (element.title.toLowerCase().contains(search) ||
+  //         element.description.toLowerCase().contains(search)) resultSearch.add(element);
+  //   }
+  //   emit(ChangeSearchState());
+  // }
+  //
+  // void searchAtCartProducts(String search) {
+  //   resultSearch = [];
+  //
+  //   for (var element in cartProducts) {
+  //     if (element.title.toLowerCase().contains(search) ||
+  //         element.description.toLowerCase().contains(search)) resultSearch.add(element);
+  //   }
+  //   emit(ChangeSearchState());
+  // }
+  //
+  // void searchAtAdminProducts(String search) {
+  //   resultSearch = [];
+  //
+  //   for (var element in adminProducts) {
+  //     if (element.title.toLowerCase().contains(search) ||
+  //         element.description.toLowerCase().contains(search)) resultSearch.add(element);
+  //   }
+  //   emit(ChangeSearchState());
+  // }
+  //
+  // void getAllProducts(List<ProductModel> products) {
+  //   allProducts = products;
+  //   emit(GetAllProductsSearchState());
+  // }
+  //
+  // void getAdminProducts(List<ProductModel> products) {
+  //   adminProducts = products;
+  //   emit(GetAdminProductsSearchState());
+  // }
+  //
+  // void getCartProducts(List<CartProductModel> products) {
+  //   cartProducts = products;
+  //   emit(GetCartProductsSearchState());
+  // }
+}

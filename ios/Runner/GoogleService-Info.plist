@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>672218945412-ql04a6usg3est7hf495rm2ffvhrp9fo4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.672218945412-ql04a6usg3est7hf495rm2ffvhrp9fo4</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>672218945412-brl5n6606hfr6lv1ucfn6c639uvp8f7t.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDpTfAKtrXMZ935XBjBeBCmbkitwG8MRyQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>672218945412</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.novel.novels</string>
+	<key>PROJECT_ID</key>
+	<string>novels-cfc3d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>novels-cfc3d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:672218945412:ios:68de2c86ae5eaf1c71efd1</string>
+</dict>
+</plist>
