@@ -7,7 +7,7 @@ import '../../../../services/cache_helper_services.dart';
 import '../../../../services/firebase_auth_services.dart';
 import '../../../../services/firestore_services.dart';
 import '../../../../utilities/enums/shared_pref.dart';
-import '../../../../utilities/firebase/conllection_path.dart';
+import '../../../../utilities/firebase/collection_path.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {

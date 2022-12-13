@@ -11,3 +11,15 @@ class PickedImageErrorState extends NewNovelState {
 
   PickedImageErrorState(this.error);
 }
+
+class ChangeSelectedCategoryState extends NewNovelState {}
+
+class CreateNewIdState extends NewNovelState {}
+
+class PostNovelAtAdminPathLoadingState extends NewNovelState {}
+
+class PostNovelAtAdminPathSuccessState extends NewNovelState {}
+
+class PostNovelAtNovelsPathErrorState extends NewNovelState {}
+
+class PostNovelAtAdminPathErrorState extends NewNovelState {}
