@@ -13,26 +13,34 @@ class AddCoverPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return BlocBuilder<NewNovelCubit, NewNovelState>(
-      buildWhen: (_, current) => current is PickedImageSuccessState,
       builder: (context, state) {
         var cubit = context.read<NewNovelCubit>();
         return InkWell(
-          onTap: () => cubit.pickImageBase64(),
+          onTap: () {
+            cubit.resetBase64();
+            cubit.pickImageBase64();
+          },
           borderRadius: BorderRadius.circular(10),
           child: cubit.base64String != null
               ? Container(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  width: size.width / 2.5,
-                  height: size.height / 3.5,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  child: DefaultImageView(
-                    image: cubit.base64String!,
+                  padding: const EdgeInsets.all(2.5),
+                  decoration: BoxDecoration(
+                      color: defaultColor,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Container(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    width: size.width / 2.4,
+                    height: size.height / 3.22,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                    child: DefaultImageView(
+                      image: cubit.base64String!,
+                    ),
                   ),
                 )
               : Container(
-                  width: size.width / 2.5,
-                  height: size.height / 3.5,
+                  width: size.width / 2.4,
+                  height: size.height / 3.17,
                   decoration: BoxDecoration(
                     border: Border.all(
                       width: 2,

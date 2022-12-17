@@ -22,7 +22,6 @@ class NewNovelCubit extends Cubit<NewNovelState> {
 
   void resetBase64() {
     base64String = null;
-
     imageSize = false;
     emit(ResetImageState());
   }
@@ -68,21 +67,22 @@ class NewNovelCubit extends Cubit<NewNovelState> {
   }
 
   void setNovelAtPathAdmin(NovelModel novelModel) {
-    emit(PostNovelAtAdminPathLoadingState());
-
+    emit(PostNovelLoadingState());
     _service
         .setData(
-            path: FirebaseCollectionPath.setNovelsAtAdmin(
-              newId!,
-            ),
-            data: novelModel.toMap())
+      path: FirebaseCollectionPath.setNovelsAtAdmin(
+        newId!,
+      ),
+      data: novelModel.toMap(),
+    )
         .then((value) {
       _service
           .setData(
-              path: FirebaseCollectionPath.setNovel(novelModel.id),
-              data: novelModel.toMap())
+        path: FirebaseCollectionPath.setNovel(novelModel.id),
+        data: novelModel.toMap(),
+      )
           .then((value) {
-        emit(PostNovelAtAdminPathSuccessState());
+        emit(PostNovelSuccessState());
       }).catchError((error) {
         showToast(text: error.toString(), color: Colors.red);
 
@@ -93,4 +93,6 @@ class NewNovelCubit extends Cubit<NewNovelState> {
       emit(PostNovelAtAdminPathErrorState());
     });
   }
+
+
 }

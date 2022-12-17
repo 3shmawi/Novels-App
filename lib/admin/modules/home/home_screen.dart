@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:novels/models/novel.dart';
 import 'package:novels/utilities/components/background.dart';
+import 'package:novels/utilities/components/get_novels_stream/novels_stream.dart';
 import 'package:novels/utilities/components/item_components/bar_item.dart';
 import 'package:novels/utilities/routes/screens_route.dart';
 import 'package:novels/utilities/shared/icon_broken/icon_broken.dart';
 
-import '../../../utilities/components/item_components/novel_item.dart';
+import '../../../fire_store_controller/controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,34 +18,49 @@ class HomeScreen extends StatelessWidget {
         child: Stack(
           children: [
             const MyCustomBackground(),
-            GridView.count(
+            GetNovelsStream(
+              stream: FireStoreDataBase().getAdminNovelsStream(),
               padding: const EdgeInsets.fromLTRB(10, 45, 10, 0),
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              crossAxisCount: 2,
-              mainAxisSpacing: 1.0,
-              crossAxisSpacing: 15,
-              childAspectRatio: 1 / 1.9,
-              children: List.generate(
-                9,
-                (index) {
-                  // int index = products.length - count - 1;
-
-                  return const DefaultNovelItem(
-                    width: 0.1,
-                  );
-                },
-              ),
             ),
-            DefaultBarItem(
-              isPop: true,
-              textCenter: 'All Novels 45',
-              onPressed: () => Navigator.of(context)
-                  .pushNamed(ScreenRoute.searchScreenRoute),
-              widget:  const Icon(
-                IconBroken.search,
-                color: Colors.black,
-              ),
+            StreamBuilder<List<NovelModel>>(
+              stream: FireStoreDataBase().getAdminNovelsStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  var novels = snapshot.data;
+                  if (novels == null || novels.isEmpty) {
+                    return DefaultBarItem(
+                      isPop: true,
+                      textCenter: 'All Novels',
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(ScreenRoute.searchScreenRoute),
+                      widget: const Icon(
+                        IconBroken.search,
+                        color: Colors.black,
+                      ),
+                    );
+                  }
+                  return DefaultBarItem(
+                    isPop: true,
+                    textCenter: 'All Novels ${novels.length}',
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(ScreenRoute.searchScreenRoute),
+                    widget: const Icon(
+                      IconBroken.search,
+                      color: Colors.black,
+                    ),
+                  );
+                }
+                return DefaultBarItem(
+                  isPop: true,
+                  textCenter: 'All Novels',
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(ScreenRoute.searchScreenRoute),
+                  widget: const Icon(
+                    IconBroken.search,
+                    color: Colors.black,
+                  ),
+                );
+              },
             ),
           ],
         ),

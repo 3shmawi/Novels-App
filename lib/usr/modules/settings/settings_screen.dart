@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:novels/utilities/routes/screens_route.dart';
 
+import '../../../services/cache_helper_services.dart';
+import '../../../services/firebase_auth_services.dart';
+import '../../../utilities/components/toast.dart';
+import '../../../utilities/enums/shared_pref.dart';
 import '../../../utilities/shared/icon_broken/icon_broken.dart';
+import '../auth/auth_screen.dart';
 import 'component/buttons.dart';
 import 'component/page_components.dart';
+import 'component/usr_data.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -36,7 +42,9 @@ class SettingScreen extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   itemBuilder: (context) => [
                     PopupMenuItem(
-                      onTap: () {},
+                      onTap: () {
+                        showToast(text: 'لسه مخلصتهاش 🙂', color: Colors.red);
+                      },
                       height: 30,
                       padding: EdgeInsets.zero,
                       child: Row(
@@ -59,56 +67,7 @@ class SettingScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 10.0,
-                left: 10,
-                bottom: 25,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: Colors.blue,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.grey[300],
-                      radius: 38,
-                      child: const Icon(
-                        IconBroken.profile,
-                        size: 40,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Mohamed Ashmawi',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'mohamedashmawy918@gmail.com',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const DefaultUserData(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -117,17 +76,23 @@ class SettingScreen extends StatelessWidget {
                     children: [
                       DefaultButton(
                         title: 'My Novels',
-                        onTap: () {},
+                        onTap: () {
+                          showToast(text: 'لسه مخلصتهاش 🙂', color: Colors.red);
+                        },
                         subTitle: 'Already have 3 novels',
                       ),
                       DefaultButton(
                         title: 'About Us',
-                        onTap: () {},
+                        onTap: () {
+                          showToast(text: 'لسه مخلصتهاش 🙂', color: Colors.red);
+                        },
                         subTitle: 'All you need to know about us',
                       ),
                       DefaultButton(
                         title: 'Contact Us',
-                        onTap: () {},
+                        onTap: () {
+                          showToast(text: 'لسه مخلصتهاش 🙂', color: Colors.red);
+                        },
                         subTitle: 'send message on email...',
                       ),
                     ],
@@ -144,7 +109,20 @@ class SettingScreen extends StatelessWidget {
             DefaultBarButton(
               header: 'LOGOUT  ',
               iconData: IconBroken.logout,
-              onPressed: () {},
+              onPressed: () {
+                Auth().logout().then((value) {
+                  showToast(text: 'Logout Success', color: Colors.green);
+                  CacheHelper.removeData(key: SharedPrefKeys.id);
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AuthPage(),
+                      ),
+                      (route) => false);
+                }).catchError((error) {
+                  showToast(text: 'Logout Failed', color: Colors.red);
+                });
+              },
             ),
           ],
         ),

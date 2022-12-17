@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:novels/models/booked.dart';
+import 'package:novels/models/novel.dart';
+import 'package:novels/usr/modules/open_a_novel/component/comments_button.dart';
+import 'package:novels/usr/modules/open_a_novel/component/view_button.dart';
 import 'package:novels/utilities/components/item_components/head_title.dart';
+import 'package:novels/utilities/components/view/cubit/view_cubit.dart';
 import 'package:novels/utilities/routes/screens_route.dart';
 import '../../../utilities/components/button.dart';
 import '../../../utilities/components/item_components/bar_item.dart';
 import '../../../utilities/components/item_components/image.dart';
-import '../../../utilities/components/rating.dart';
+import '../../../utilities/components/rate/rate_components.dart';
+import '../../../utilities/components/toast.dart';
+import '../../../utilities/components/view/cubit/view_state.dart';
+import '../../../utilities/logic/dart_methods.dart';
 import '../../../utilities/shared/icon_broken/icon_broken.dart';
+import '../favorites/cubit/saved_cubit.dart';
+import '../favorites/cubit/saved_state.dart';
 import 'component/page_components.dart';
+import 'component/rating_button.dart';
 
 class NovelDetailScreen extends StatelessWidget {
-  const NovelDetailScreen({Key? key}) : super(key: key);
+  const NovelDetailScreen({
+    required this.novel,
+    Key? key,
+  }) : super(key: key);
+
+  final NovelModel novel;
 
   @override
   Widget build(BuildContext context) {
@@ -41,45 +58,37 @@ class NovelDetailScreen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: const DefaultImageView(
-                                image:
-                                    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHJlYWRpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-                              ),
+                              child: DefaultImageView(image: novel.imgUrl),
                             ),
                           ),
                           Text(
-                            'Catcher in the Rye',
+                            novel.title,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(height: 2),
                           ),
                           Text(
-                            'J.D. Salinger',
+                            novel.authorName,
                             style: Theme.of(context).textTheme.caption,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 6.0, bottom: 5),
-                            child: DefaultRating(id: ''),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 6.0, bottom: 5),
+                            child: DefaultSetRatingFromUsr(
+                              id: novel.id,
+                            ),
                           ),
                           Row(
                             children: [
+                              DefaultCommentsButton(novelId: novel.id),
+                              DefaultRatingCount(novelId: novel.id),
+                              DefaultViewButton(novelId: novel.id),
                               DefaultHeadButton(
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed(ScreenRoute.commentsScreenRoute),
-                                text: '158 ',
-                                iconData: IconBroken.chat,
-                              ),
-                              const DefaultHeadButton(
-                                text: '4.5 ',
-                                iconData: IconBroken.star,
-                              ),
-                              const DefaultHeadButton(
-                                text: '1K ',
-                                iconData: IconBroken.show,
-                              ),
-                              DefaultHeadButton(
-                                onTap: () {},
+                                onTap: () {
+                                  showToast(
+                                      text: 'لسه مخلصتهاش 🙂',
+                                      color: Colors.black);
+                                },
                                 text: 'Share',
                                 iconData: IconBroken.send,
                                 fontSize: 12.5,
@@ -87,26 +96,54 @@ class NovelDetailScreen extends StatelessWidget {
                             ],
                           ),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const DefaultHeadTitle(title: 'About the author'),
-                              Text(
-                                'J.D. Salinger was an American writer, best known for his 1951 novel The Catcher in the Rye. Before its public cation, Salinger published several short stories in Story magazine',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption!
-                                    .copyWith(height: 1.4),
+                              const Align(
+                                alignment: AlignmentDirectional.topStart,
+                                child: DefaultHeadTitle(
+                                  title: 'About the author',
+                                ),
+                              ),
+                              Align(
+                                alignment:
+                                    isFirstCharArabic(novel.aboutTheAuthor)
+                                        ? AlignmentDirectional.topEnd
+                                        : AlignmentDirectional.topStart,
+                                child: Text(
+                                  novel.aboutTheAuthor,
+                                  textDirection:
+                                      isFirstCharArabic(novel.aboutTheAuthor)
+                                          ? TextDirection.rtl
+                                          : TextDirection.ltr,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .copyWith(height: 1.4),
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              const DefaultHeadTitle(title: 'Overview'),
-                              Text(
-                                'The Catcher in the Rye is a novel by J. D. Salinger, partially published in serial form in 1945–1946 and as a novel in 1951. It was originally intended for adu lts but is often read by adolescents for its theme of angst, alienation and as a critique......',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption!
-                                    .copyWith(height: 1.4),
+                              const Align(
+                                alignment: AlignmentDirectional.topStart,
+                                child: DefaultHeadTitle(
+                                  title: 'Overview',
+                                ),
+                              ),
+                              Align(
+                                alignment: isFirstCharArabic(novel.overview)
+                                    ? AlignmentDirectional.topEnd
+                                    : AlignmentDirectional.topStart,
+                                child: Text(
+                                  novel.overview,
+                                  textDirection:
+                                      isFirstCharArabic(novel.overview)
+                                          ? TextDirection.rtl
+                                          : TextDirection.ltr,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .copyWith(height: 1.4),
+                                ),
                               ),
                             ],
                           ),
@@ -114,19 +151,52 @@ class NovelDetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: DefaultOutlinedButton(),
+                  BlocBuilder<ViewCubit, ViewState>(
+                    builder: (context, state) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DefaultOutlinedButton(
+                          onPressed: () {
+                            context
+                                .read<ViewCubit>()
+                                .setView(novelId: novel.id);
+                            Navigator.pushNamed(
+                              context,
+                              ScreenRoute.novelTextScreenRoute,
+                              arguments: novel,
+                            );
+                          },
+                          header: 'READ NOW...',
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
             ),
-            DefaultBarItem(
-              onPressed: () {},
-              textCenter: '',
-              widget: const Icon(
-                IconBroken.bookmark,
-              ),
+            BlocBuilder<LocalDatabaseCubit, LocalDatabaseState>(
+              builder: (context, state) {
+                var cubit = context.read<LocalDatabaseCubit>();
+                var bookedNovel = BookedModel(
+                  id: novel.id,
+                  authorName: novel.authorName,
+                  category: novel.category,
+                  imgUrl: novel.imgUrl,
+                  title: novel.title,
+                  aboutTheAuthor: novel.aboutTheAuthor,
+                  novelText: novel.novelText,
+                  overview: novel.overview,
+                );
+                return DefaultBarItem(
+                  onPressed: () => cubit.bookedButton(bookedNovel),
+                  textCenter: '',
+                  widget: Icon(
+                    cubit.isBooked(bookedNovel)
+                        ? Icons.book
+                        : IconBroken.bookmark,
+                  ),
+                );
+              },
             ),
           ],
         ),

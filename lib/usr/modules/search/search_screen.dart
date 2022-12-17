@@ -83,6 +83,7 @@ class SearchScreen extends StatelessWidget {
                             var cubit = context.read<SearchCubit>();
                             return DefaultIconButton(
                               onTap: () {
+                                showToast(text: 'لسه مخلصتهاش 🙂', color: Colors.red);
                                 if (searchController.text.isEmpty) {
                                   showToast(
                                       text: 'Form search required',

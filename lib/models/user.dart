@@ -3,6 +3,7 @@ class UserModel {
   final String name;
   final String email;
   final String imgUrl;
+  final String token;
   final bool isAdmin;
 
   UserModel({
@@ -10,6 +11,7 @@ class UserModel {
     required this.name,
     required this.email,
     required this.imgUrl,
+    required this.token,
     required this.isAdmin,
   });
 
@@ -19,6 +21,7 @@ class UserModel {
       'name': name,
       'email': email,
       'imgUrl': imgUrl,
+      'token': token,
       'isAdmin': isAdmin,
     };
   }
@@ -29,6 +32,7 @@ class UserModel {
       name: map['name'] as String,
       email: map['email'] as String,
       imgUrl: map['imgUrl'] as String,
+      token: map['token'] as String,
       isAdmin: map['isAdmin'] as bool,
     );
   }

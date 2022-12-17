@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../routes/screens_route.dart';
 import '../shared/colors/default_app_color.dart';
 
 class DefaultElevatedButton extends StatelessWidget {
@@ -37,9 +36,15 @@ class DefaultElevatedButton extends StatelessWidget {
   }
 }
 
-
 class DefaultOutlinedButton extends StatelessWidget {
-  const DefaultOutlinedButton({Key? key}) : super(key: key);
+  const DefaultOutlinedButton({
+    required this.onPressed,
+    required this.header,
+    Key? key,
+  }) : super(key: key);
+
+  final String header;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +59,12 @@ class DefaultOutlinedButton extends StatelessWidget {
             ),
           ),
         ),
+        onPressed: onPressed,
         child: Text(
-          'READ NOW',
+          header,
           style: Theme.of(context).textTheme.button!.copyWith(
-            color: defaultColor,
-          ),
-        ),
-        onPressed: () => Navigator.pushNamed(
-          context,
-          ScreenRoute.novelTextScreenRoute,
+                color: defaultColor,
+              ),
         ),
       ),
     );

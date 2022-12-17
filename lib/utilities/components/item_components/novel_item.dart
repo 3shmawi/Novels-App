@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:novels/models/novel.dart';
 import 'package:novels/utilities/components/item_components/image.dart';
 
 import '../../routes/screens_route.dart';
 
 class DefaultNovelItem extends StatelessWidget {
   const DefaultNovelItem({
+   required this.novel,
     this.height = 3.03,
     this.width = 2.4,
     Key? key,
@@ -12,7 +14,7 @@ class DefaultNovelItem extends StatelessWidget {
 
   final double height;
   final double width;
-
+final NovelModel novel;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -21,6 +23,7 @@ class DefaultNovelItem extends StatelessWidget {
         Navigator.pushNamed(
           context,
           ScreenRoute.openNovelScreenRoute,
+          arguments: novel,
         );
       },
       child: Column(
@@ -33,18 +36,17 @@ class DefaultNovelItem extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: const DefaultImageView(
-                image:
-                    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHJlYWRpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+              child:  DefaultImageView(
+                image:novel.imgUrl,
               ),
             ),
           ),
           Text(
-            'Catcher in the Rye',
+            novel.title,
             style: Theme.of(context).textTheme.titleMedium!.copyWith(height: 2),
           ),
           Text(
-            'J.D. Salinger',
+            novel.authorName,
             style: Theme.of(context).textTheme.caption,
           ),
         ],

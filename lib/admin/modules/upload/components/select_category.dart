@@ -6,12 +6,14 @@ import '../../../../models/category.dart';
 import '../cubit/new_novel_cubit.dart';
 import '../cubit/new_novel_state.dart';
 
+var selectedCategory = '';
+
 class DefaultSelectedCategory extends StatelessWidget {
   const DefaultSelectedCategory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var selectedCategory = '';
+
     return  Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -63,8 +65,6 @@ class DefaultSelectedCategory extends StatelessWidget {
                         child: Text(category[index].title),
                       ),
                     ),
-                    // After selecting the desired option,it will
-                    // change button value to selected value
                     onChanged: (String? category) {
                       cubit.changeSelectedCategory(category!);
                     },

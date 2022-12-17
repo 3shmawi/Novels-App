@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:novels/models/novel.dart';
+import 'package:novels/usr/modules/notification/notifications_screen.dart';
 
 import '../../admin/layout/admin_layout.dart';
 import '../../usr/layout/layout_screen.dart';
@@ -14,53 +16,88 @@ import '../routes/screens_route.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
+
     case ScreenRoute.onBoardingScreenRoute:
       return CupertinoPageRoute(
         builder: (_) => const OnBoardingScreen(),
         settings: settings,
       );
+
+
     case ScreenRoute.authScreenRoute:
       return CupertinoPageRoute(
         builder: (_) => const AuthPage(),
         settings: settings,
       );
+
+
     case ScreenRoute.resetScreenRoute:
       return CupertinoPageRoute(
         builder: (_) => const ResetScreen(),
         settings: settings,
       );
+
+
     case ScreenRoute.openNovelScreenRoute:
       return CupertinoPageRoute(
-        builder: (_) => const NovelDetailScreen(),
+        builder: (_) =>
+            NovelDetailScreen(novel: settings.arguments as NovelModel),
         settings: settings,
       );
+
+
     case ScreenRoute.novelTextScreenRoute:
       return CupertinoPageRoute(
-        builder: (_) => const NovelTextScreen(),
+        builder: (_) =>
+            NovelTextScreen(novel: settings.arguments as NovelModel),
         settings: settings,
       );
+
+
     case ScreenRoute.searchScreenRoute:
       return CupertinoPageRoute(
-        builder: (_) => SearchScreen(
-          searchId: '',
-        ),
+        builder: (_) =>
+            SearchScreen(
+              searchId: '',
+            ),
         settings: settings,
       );
+
+
     case ScreenRoute.commentsScreenRoute:
       return CupertinoPageRoute(
-        builder: (_) => CommentsScreen(),
+        builder: (_) => CommentsScreen(novelId: settings.arguments as String),
         settings: settings,
       );
+
+
     case ScreenRoute.repliesScreenRoute:
       return CupertinoPageRoute(
-        builder: (_) => RepliesScreen(),
+        builder: (_) {
+          RepliesScreen repliesScreen = settings.arguments as RepliesScreen;
+          return RepliesScreen(
+            novelId: repliesScreen.novelId,
+            replyComment: repliesScreen.replyComment,
+          );
+        },
         settings: settings,
       );
+
+
     case ScreenRoute.adminScreenRoute:
       return CupertinoPageRoute(
         builder: (_) => const AdminLayoutScreen(),
         settings: settings,
       );
+
+
+      case ScreenRoute.notificationScreenRoute:
+      return CupertinoPageRoute(
+        builder: (_) => const NotificationScreen(),
+        settings: settings,
+      );
+
+
     case ScreenRoute.landingScreenRoute:
     default:
       return CupertinoPageRoute(

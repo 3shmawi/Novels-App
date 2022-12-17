@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:novels/utilities/components/get_novels_stream/novels_stream.dart';
 
+import '../../../fire_store_controller/controller.dart';
 import '../../../utilities/components/item_components/head_title.dart';
-import '../../../utilities/components/item_components/novel_item.dart';
+import 'component/notification.dart';
 import 'component/page_components.dart';
 import 'component/tap_bar_items.dart';
 
@@ -18,51 +20,35 @@ class HomeScreen extends StatelessWidget {
     });
 
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (show)
-                const DefaultHeadTitle(
-                  title: 'Welcome back, Mohammed!',
-                ),
-              Text(
-                'What do you want to \nread today?',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(height: 1.5),
+      child: Stack(
+        alignment: AlignmentDirectional.topEnd,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (show)
+                    const DefaultHeadTitle(title: 'Welcome back, Mohammed!'),
+                  Text(
+                    'What do you want to \nread today?',
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          height: 1.5,
+                        ),
+                  ),
+                  const DefaultSearch(),
+                  const DefaultTapBarCategory(),
+                  const DefaultHeadTitle(title: ' New Arrivals'),
+                  GetNovelsStream(
+                      stream: FireStoreDataBase().getAllNovelsStream()),
+                ],
               ),
-              const DefaultSearch(),
-              const DefaultTapBarCategory(),
-              const DefaultHeadTitle(
-                title: ' New Arrivals',
-              ),
-              GridView.count(
-                padding: const EdgeInsets.all(0),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                mainAxisSpacing: 1.0,
-                crossAxisSpacing: 15,
-                childAspectRatio: 1 / 1.9,
-                children: List.generate(
-                  9,
-                  (index) {
-                    // int index = products.length - count - 1;
-
-                    return const DefaultNovelItem(
-                      width: 0.1,
-                    );
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          const DefaultNotification(),
+        ],
       ),
     );
   }

@@ -16,10 +16,11 @@ class ChangeSelectedCategoryState extends NewNovelState {}
 
 class CreateNewIdState extends NewNovelState {}
 
-class PostNovelAtAdminPathLoadingState extends NewNovelState {}
+class PostNovelLoadingState extends NewNovelState {}
 
-class PostNovelAtAdminPathSuccessState extends NewNovelState {}
+class PostNovelSuccessState extends NewNovelState {}
 
 class PostNovelAtNovelsPathErrorState extends NewNovelState {}
 
 class PostNovelAtAdminPathErrorState extends NewNovelState {}
+

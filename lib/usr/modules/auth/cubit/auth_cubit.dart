@@ -1,6 +1,8 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:novels/utilities/logic/dart_methods.dart';
 
 import '../../../../models/user.dart';
 import '../../../../services/cache_helper_services.dart';
@@ -59,24 +61,28 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(CreateLoadingState());
 
-    Auth().signUpWithEmailAndPassword(email, password).then((value) {
-      CacheHelper.saveData(key: SharedPrefKeys.id, value: value!.uid);
+    Auth().signUpWithEmailAndPassword(email, password).then((user) {
+      CacheHelper.saveData(key: SharedPrefKeys.id, value: user!.uid);
       if (kDebugMode) {
         print('Create User Success');
       }
-      createUser(
-        UserModel(
-          isAdmin: false,
-          id: value.uid,
-          name: name,
-          email: email,
-          imgUrl:
-              'https://us.123rf.com/450wm/ne2pi/ne2pi2011/ne2pi201100001/158603194-anonymes-vektorsymbol-inkognito-zeichen-datenschutzkonzept-menschlicher-kopf-mit-glitch-gesicht-illu.jpg?ver=6',
-        ),
-      ).then((value) {
-        emit(CreateUserSuccessState());
-      }).catchError((error) {
-        emit(CreateUserErrorState(error.toString()));
+
+      FirebaseMessaging.instance.getToken().then((token) {
+        createUser(
+          UserModel(
+            isAdmin: false,
+            id: user.uid,
+            name: makeNameUpper(name),
+            email: email,
+            token: token!,
+            imgUrl:
+                'https://us.123rf.com/450wm/ne2pi/ne2pi2011/ne2pi201100001/158603194-anonymes-vektorsymbol-inkognito-zeichen-datenschutzkonzept-menschlicher-kopf-mit-glitch-gesicht-illu.jpg?ver=6',
+          ),
+        ).then((value) {
+          emit(CreateUserSuccessState());
+        }).catchError((error) {
+          emit(CreateUserErrorState(error.toString()));
+        });
       });
     }).catchError((error) {
       if (kDebugMode) {

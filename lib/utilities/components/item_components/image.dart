@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class DefaultImageView extends StatelessWidget {
@@ -15,10 +14,8 @@ class DefaultImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (image.startsWith('https://')) {
-      return Image(
-        image: CachedNetworkImageProvider(
-          image,
-        ),
+      return Image.network(
+        image,
         fit: BoxFit.cover,
       );
     } else {
