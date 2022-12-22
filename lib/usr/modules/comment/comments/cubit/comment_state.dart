@@ -1,4 +1,3 @@
-
 abstract class CommentState {}
 
 class CommentInitial extends CommentState {}
@@ -9,9 +8,8 @@ class SetCommentSuccessState extends CommentState {}
 
 class SetCommentErrorState extends CommentState {}
 
+class ChangeLengthState extends CommentState {}
 
-class SetRepliesCommentLoadingState extends CommentState {}
+class JumpToState extends CommentState {}
 
-class SetRepliesCommentSuccessState extends CommentState {}
 
-class SetRepliesCommentErrorState extends CommentState {}

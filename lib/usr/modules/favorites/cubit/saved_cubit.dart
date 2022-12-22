@@ -95,4 +95,9 @@ class LocalDatabaseCubit extends Cubit<LocalDatabaseState> {
     }
     emit(DeleteLocalDatabaseState());
   }
+
+
+  void closeDB(){
+    _database.close();
+  }
 }

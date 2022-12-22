@@ -23,13 +23,14 @@ String makeFirstUpper(String text) {
 
 String makeNameUpper(String text) {
   String name = text[0].toUpperCase();
-  for (int i = 1; i < text.length; i++) {
+  for (int i = 1; i < text.length-1; i++) {
     name += text[i];
     if (text[i] == ' ' && i != text.length) {
       name += text[i + 1].toUpperCase();
       i++;
     }
   }
+  name += text[text.length-1];
   return name;
 }
 
@@ -44,4 +45,24 @@ String getTwoDecimalDouble(String value) {
   }
 
   return value;
+}
+
+String daysBetween(DateTime date) {
+  if (DateTime.now().difference(date).inDays <= 5) {
+    if ((DateTime.now().difference(date).inHours / 24).round() == 0) {
+      if (DateTime.now().difference(date).inHours == 0) {
+        if (DateTime.now().difference(date).inMinutes == 0) {
+          return 'now';
+        } else {
+          return '${DateTime.now().difference(date).inMinutes.toString()}m';
+        }
+      } else {
+        return '${DateTime.now().difference(date).inHours.toString()}h';
+      }
+    } else {
+      return (' ${(DateTime.now().difference(date).inHours / 24).round().toString()}d');
+    }
+  } else {
+    return 'date';
+  }
 }

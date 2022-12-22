@@ -10,4 +10,5 @@ class ScreenRoute {
   static const String repliesScreenRoute = '/replies';
   static const String adminScreenRoute = '/admin';
   static const String notificationScreenRoute = '/notifications';
+  static const String openPhotoScreenRoute = '/openPhoto';
 }

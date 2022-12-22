@@ -36,4 +36,5 @@ class UserModel {
       isAdmin: map['isAdmin'] as bool,
     );
   }
+
 }

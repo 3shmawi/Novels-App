@@ -23,14 +23,7 @@ PreferredSize defaultAppBar(context) {
             color: Colors.black,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              IconBroken.bookmark,
-            ),
-          ),
-        ],
+       
       ),
     ),
   );

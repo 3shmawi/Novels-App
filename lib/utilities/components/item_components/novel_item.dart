@@ -6,7 +6,7 @@ import '../../routes/screens_route.dart';
 
 class DefaultNovelItem extends StatelessWidget {
   const DefaultNovelItem({
-   required this.novel,
+    required this.novel,
     this.height = 3.03,
     this.width = 2.4,
     Key? key,
@@ -14,7 +14,8 @@ class DefaultNovelItem extends StatelessWidget {
 
   final double height;
   final double width;
-final NovelModel novel;
+  final NovelModel novel;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -36,8 +37,8 @@ final NovelModel novel;
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
-              child:  DefaultImageView(
-                image:novel.imgUrl,
+              child: DefaultImageView(
+                image: novel.imgUrl,
               ),
             ),
           ),

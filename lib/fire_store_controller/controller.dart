@@ -1,5 +1,7 @@
 import 'package:novels/models/comment.dart';
+import 'package:novels/models/notification.dart';
 import 'package:novels/models/novel.dart';
+import 'package:novels/models/replies.dart';
 
 import '../models/category.dart';
 import '../models/rate.dart';
@@ -9,8 +11,6 @@ import '../utilities/firebase/collection_path.dart';
 
 abstract class Controller {
   Stream<UserModel> getUserDataStream(String uid);
-
-  Stream<List<NovelModel>> getUserSavedBooksStream();
 
   Stream<List<CategoryModel>> getCategoriesStream();
 
@@ -26,22 +26,18 @@ abstract class Controller {
 
   Stream<List<CommentModel>> getNovelCommentsStream(String novelId);
 
-  Stream<List<CommentModel>> getNovelReplyCommentStream(String novelId,String commentId);
+  Stream<List<RepliesModel>> getNovelRepliesCommentStream(String novelId, String commentId);
+
+  Stream<List<NotificationModel>> getNotificationsStream(String usrId);
 }
 
 class FireStoreDataBase implements Controller {
   final _service = FirestoreServices.instance;
 
-
   @override
   Stream<UserModel> getUserDataStream(String uid) => _service.documentsStream(
       path: FirebaseCollectionPath.user(uid),
       builder: (data, documentId) => UserModel.fromMap(data!, documentId));
-
-  @override
-  Stream<List<NovelModel>> getUserSavedBooksStream() => _service.collectionsStream(
-      path: FirebaseCollectionPath.getUserSaved(),
-      builder: (data, documentId) => NovelModel.fromMap(data!, documentId));
 
   @override
   Stream<List<CategoryModel>> getCategoriesStream() =>
@@ -92,9 +88,18 @@ class FireStoreDataBase implements Controller {
       );
 
   @override
-  Stream<List<CommentModel>> getNovelReplyCommentStream(String novelId,String commentId) =>
+  Stream<List<RepliesModel>> getNovelRepliesCommentStream(
+          String novelId, String commentId) =>
       _service.collectionsStream(
-        path: FirebaseCollectionPath.getNovelReplyComments(novelId,commentId),
-        builder: (date, documentId) => CommentModel.fromMap(date!, documentId),
+        path: FirebaseCollectionPath.getNovelReplyComments(novelId, commentId),
+        builder: (date, documentId) => RepliesModel.fromMap(date!, documentId),
+      );
+
+  @override
+  Stream<List<NotificationModel>> getNotificationsStream(
+          String usrId) =>
+      _service.collectionsStream(
+        path: FirebaseCollectionPath.getNotifications(usrId),
+        builder: (date, documentId) => NotificationModel.fromMap(date!, documentId),
       );
 }

@@ -21,12 +21,12 @@ class NovelDatabase {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 2, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $tableNovel (${NovelFields.dbId} INTEGER PRIMARY KEY, ${NovelFields.title} TEXT, ${NovelFields.imgUrl} TEXT, ${NovelFields.authorName} TEXT, ${NovelFields.id} TEXT, ${NovelFields.novelText} TEXT, ${NovelFields.overview} TEXT, ${NovelFields.aboutTheAuthor} TEXT, ${NovelFields.category} TEXT)');
+        'CREATE TABLE $tableNovel (${NovelFields.dbId} INTEGER PRIMARY KEY, ${NovelFields.title} TEXT, ${NovelFields.imgUrl} TEXT, ${NovelFields.authorName} TEXT, ${NovelFields.id} TEXT, ${NovelFields.category} TEXT)');
   }
 
   Future<BookedModel> insertDataToBookedDataBase({
@@ -43,7 +43,7 @@ class NovelDatabase {
 
     final result = await db.rawQuery('SELECT * FROM $tableNovel');
 
-    return result.map((json) => BookedModel.fromMapWithoutId(json)).toList();
+    return result.map((json) => BookedModel.fromMap(json)).toList();
   }
 
   Future<int> updateBookedNovel({

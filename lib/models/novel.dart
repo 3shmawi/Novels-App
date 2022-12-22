@@ -1,3 +1,5 @@
+import 'package:novels/models/user.dart';
+
 class NovelModel {
   final String id;
   final String imgUrl;
@@ -7,7 +9,8 @@ class NovelModel {
   final String overview;
   final String category;
   final String novelText;
-
+  final UserModel userModel;
+//usrID
   NovelModel({
     required this.id,
     required this.imgUrl,
@@ -17,6 +20,7 @@ class NovelModel {
     required this.overview,
     required this.category,
     required this.novelText,
+    required this.userModel,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,6 +33,7 @@ class NovelModel {
       'overview': overview,
       'category': category,
       'novelText': novelText,
+      'userModel': userModel.toMap(),
     };
   }
 
@@ -42,19 +47,8 @@ class NovelModel {
       overview: map['overview'] as String,
       category: map['category'] as String,
       novelText: map['novelText'] as String,
+      userModel: UserModel.fromMap(map['userModel'],map['userModel']['id']),
     );
   }
 
-  factory NovelModel.fromMapWithoutId(Map<String, dynamic> map) {
-    return NovelModel(
-      id: map['id'] as String,
-      imgUrl: map['imgUrl'] as String,
-      title: map['title'] as String,
-      authorName: map['authorName'] as String,
-      aboutTheAuthor: map['aboutTheAuthor'] as String,
-      overview: map['overview'] as String,
-      category: map['category'] as String,
-      novelText: map['novelText'] as String,
-    );
-  }
 }

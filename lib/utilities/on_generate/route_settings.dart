@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:novels/models/novel.dart';
 import 'package:novels/usr/modules/notification/notifications_screen.dart';
+import 'package:novels/usr/modules/open_photo/open_photo_screen.dart';
 
 import '../../admin/layout/admin_layout.dart';
+import '../../models/comment.dart';
 import '../../usr/layout/layout_screen.dart';
 import '../../usr/modules/auth/auth_screen.dart';
 import '../../usr/modules/auth/reset_password/reset_password_screen.dart';
 import '../../usr/modules/boarding/boarding_screen.dart';
-import '../../usr/modules/comments/comments_screen.dart';
-import '../../usr/modules/comments/replies/replies_screen.dart';
+import '../../usr/modules/comment/comments/comments_screen.dart';
+import '../../usr/modules/comment/replies/replies_screen.dart';
 import '../../usr/modules/novel_text/novel_text.dart';
 import '../../usr/modules/open_a_novel/details_screen.dart';
 import '../../usr/modules/search/search_screen.dart';
@@ -16,7 +18,6 @@ import '../routes/screens_route.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
-
     case ScreenRoute.onBoardingScreenRoute:
       return CupertinoPageRoute(
         builder: (_) => const OnBoardingScreen(),
@@ -66,7 +67,10 @@ Route<dynamic> onGenerate(RouteSettings settings) {
 
     case ScreenRoute.commentsScreenRoute:
       return CupertinoPageRoute(
-        builder: (_) => CommentsScreen(novelId: settings.arguments as String),
+        builder: (_) {
+          var data = settings.arguments as CommentsScreen;
+          return CommentsScreen(novel: data.novel, index: data.index,);
+        },
         settings: settings,
       );
 
@@ -74,10 +78,11 @@ Route<dynamic> onGenerate(RouteSettings settings) {
     case ScreenRoute.repliesScreenRoute:
       return CupertinoPageRoute(
         builder: (_) {
-          RepliesScreen repliesScreen = settings.arguments as RepliesScreen;
+          var data = settings.arguments as RepliesScreen;
+
           return RepliesScreen(
-            novelId: repliesScreen.novelId,
-            replyComment: repliesScreen.replyComment,
+            replyComment: data.replyComment,
+            index: data.index,
           );
         },
         settings: settings,
@@ -91,9 +96,16 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       );
 
 
-      case ScreenRoute.notificationScreenRoute:
+    case ScreenRoute.notificationScreenRoute:
       return CupertinoPageRoute(
         builder: (_) => const NotificationScreen(),
+        settings: settings,
+      );
+
+
+    case ScreenRoute.openPhotoScreenRoute:
+      return CupertinoPageRoute(
+        builder: (_) => OpenPhotoScreen(image: settings.arguments as String),
         settings: settings,
       );
 

@@ -6,12 +6,6 @@ class FirebaseCollectionPath {
 
   static String user(String uid) => 'usr/$uid';
 
-  static String setUserSaved(String novelId) => 'usr/$id/saved/$novelId';
-
-  static String getUserSaved() => 'usr/$id/saved/';
-
-  static String deleteUserSaved(String novelId) => 'usr/$id/saved/$novelId';
-
   static String category() => 'categories/';
 
   static String setNovelsAtAdmin(String novelId) => 'usr/$id/novels/$novelId';
@@ -29,6 +23,10 @@ class FirebaseCollectionPath {
   static String setNovelView(String novelId) => 'novels/$novelId/views/$id';
 
   static String getNovelViews(String novelId) => 'novels/$novelId/views/';
+
+  static String setNotification(String usrId,String newId) => 'usr/$usrId/notification/$newId';
+
+  static String getNotifications(String usrId) => 'usr/$usrId/notification/';
 
   static String setNovelComment(String novelId,String newId) => 'novels/$novelId/comments/$newId';
 
