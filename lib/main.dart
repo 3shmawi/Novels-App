@@ -8,6 +8,7 @@ import 'package:novels/utilities/app/my_app_screen.dart';
 import 'package:novels/utilities/components/toast.dart';
 import 'dart:async';
 
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   showToast(
@@ -24,7 +25,6 @@ Future<void> main() async {
   await DioHelper.init();
 
   await FirebaseMessaging.instance.getInitialMessage();
-
 
   // await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
