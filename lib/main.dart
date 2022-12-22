@@ -24,6 +24,8 @@ Future<void> main() async {
   await DioHelper.init();
 
   await FirebaseMessaging.instance.getInitialMessage();
+
+
   // await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
